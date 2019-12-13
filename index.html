@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<script src="https://unpkg.com/vue"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Matador de Monstro</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<body>
+    <div id="game">
+        <div class="score">
+            <div class="displayLife">
+                <span>Jogador</span>
+                <div class="bar" :style="{backgroundColor:colorP}">
+                    <div :style="[lifebarPlayer]">
+                    </div>
+                </div>
+                {{lifePlayer}}%
+            </div>
+            <div class="displayLife" >
+                <span>Monstro</span>
+                <div class="bar" :style="{backgroundColor:colorM}">
+                    <div :style="[lifebarMonster]">
+                    </div>
+                </div>
+                {{lifeMonster}}%
+            </div>
+        </div>
+        <div v-show="victory"class="displayBotões">
+            <div v-if="victory === 'P'" class="winOrLose" style="color: green;">
+                Você ganhou!!! :)
+            </div>
+            <div v-else class="winOrLose" style="color: red;">
+                Você Perdeu!:(
+            </div>
+        </div>
+        <div class="displayBotões">
+            <button @click="newPlay()" v-show="!showButtons" class="newGame">Iniciar Novo Jogo</button>
+            <button @click="attack()" v-show="showButtons" class="ataque">Ataque</button>
+            <button @click="attack('especial')"v-show="showButtons" class="especial">Ataque Especial</button>
+            <button @click="cure()"v-show="showButtons" class="curar">Curar</button>
+            <button @click="showButtons = false" v-show="showButtons" class="desistir">Desistir</button>
+        </div>
+        <div class="displayLista" v-show="showLista">
+            <div>
+                <ul class="estiloLista" >
+                    <li v-for="element in log" :style="element.attack === 'M'?{backgroundColor:'red'}:element.attack === 'P'?{backgroundColor:'green'}:{backgroundColor:'orange'}">{{element.time}}) {{element.mensagem}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+<script src="script.js"></script>
