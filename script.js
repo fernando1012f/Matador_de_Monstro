@@ -102,14 +102,18 @@ new Vue({
             } else {
                 this.colorP = 'green'
                 this.lifePlayer = this.lifePlayer + (curePlayer - damageToPlayer)
-                if ((100 - this.lifePlayer) + (curePlayer - damageToPlayer) >= 100){
+                if (this.lifePlayer >= 100){
+                    this.lifebarPlayer.backgroundColor = 'green'
                     this.lifebarPlayer.width = '100%'
+                    this.lifePlayer = 100
+                    this.log.unshift({time: timeNow, mensagem: "Monstro atigiu jogador com " + damageToPlayer+" ponto(s) de ataque", attack: 'M'})
                     this.log.unshift({time: timeNow, mensagem: "Jogador foi curado o maximo de vida!!", attack: ''}) 
                 } else{
                     this.lifebarPlayer.width = (100 - this.lifePlayer) + (curePlayer - damageToPlayer) + '%'
                     this.log.unshift({time: timeNow, mensagem: "O Jogador curou " + curePlayer+" ponto(s) de vida", attack: 'P'})
+                    this.log.unshift({time: timeNow, mensagem: "Monstro atigiu jogador com " + damageToPlayer+" ponto(s) de ataque", attack: 'M'})
                 }
-                this.log.unshift({time: timeNow, mensagem: "Monstro atigiu jogador com " + damageToPlayer+" ponto(s) de ataque", attack: 'M'})
+                
                 
             }
 
